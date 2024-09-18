@@ -87,3 +87,25 @@ resource "aws_ecs_service" "flower_service" {
     ]
 
 }
+
+resource "aws_ecs_service" "selenium" {
+  name = "${var.project_name}-${var.stage}-selenium"
+  cluster = aws_ecs_cluster.ecs_cluster.id
+  task_definition = aws_ecs_task_definition.selenium.arn
+  desired_count   = 1
+  launch_type     = "FARGATE"
+
+  network_configuration {
+    subnets          = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id, aws_subnet.public-subnet-3.id]
+    security_groups  = [aws_security_group.selenium.id]
+    assign_public_ip = true
+  }
+  load_balancer {
+    target_group_arn = aws_alb_target_group.selenium.id
+    container_name   = "selenium"
+    container_port   = 4444
+  }
+  depends_on = [
+    aws_alb_listener.airflow_web_server
+  ]
+}

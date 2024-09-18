@@ -1,4 +1,4 @@
-FROM apache/airflow:2.1.3-python3.8
+FROM apache/airflow:2.10.1-python3.11
 
 ENV AIRFLOW_HOME=/usr/local/airflow
 
@@ -16,14 +16,15 @@ COPY plugins ${AIRFLOW_HOME}/plugins
 COPY dags /dags
 RUN mkdir ${AIRFLOW_HOME}/dags 
 
-RUN chown -R airflow:airflow ${AIRFLOW_HOME}
+RUN chown -R airflow: ${AIRFLOW_HOME}
 RUN chmod 777 -R /dags
+
 
 USER airflow
 
 #requirements
 COPY config/requirements.txt .
-RUN pip install --user --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 
 EXPOSE 8080 5555 8793

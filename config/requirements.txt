@@ -2,3 +2,13 @@ boto3
 pandas
 apache-airflow-providers-amazon
 awscli
+aiohttp
+apache-airflow-providers-http
+apache-airflow-providers-microsoft-mssql
+apache-airflow-providers-mongo
+bs4
+lxml
+openpyxl
+pyarrow
+requests
+selenium

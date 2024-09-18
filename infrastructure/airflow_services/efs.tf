@@ -5,6 +5,46 @@ resource "aws_efs_file_system" "foo" {
   }
 }
 
+resource "aws_efs_access_point" "airflow_access_point" {
+  file_system_id = aws_efs_file_system.foo.id
+  posix_user {
+    uid = 1000
+    gid = 1000
+  }
+  root_directory {
+    path = var.volume_efs_root_directory
+    creation_info {
+      owner_uid = 1000
+      owner_gid = 1000
+      permissions = "755"
+    }
+  }
+
+  tags = {
+    Name = "airflow-efs-access-point"
+  }
+}
+
+resource "aws_efs_access_point" "selenium_access_point" {
+  file_system_id = aws_efs_file_system.foo.id
+  posix_user {
+    uid = 1001
+    gid = 1001
+  }
+  root_directory {
+    path = var.volume_efs_selenium
+    creation_info {
+      owner_uid = 1001
+      owner_gid = 1001
+      permissions = "755"
+    }
+  }
+
+  tags = {
+    Name = "selenium-efs-access-point"
+  }
+}
+
 resource "aws_efs_mount_target" "mount-a" {
   file_system_id = aws_efs_file_system.foo.id
   subnet_id      = aws_subnet.public-subnet-1.id
@@ -71,3 +111,4 @@ resource "aws_security_group" "efs_sg" {
         Name = "${var.project_name}-${var.stage}-efs-sg"
     }
 }
+

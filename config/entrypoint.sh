@@ -12,9 +12,9 @@ case "$1" in
         --role Admin \
         --username airflow \
         --password airflow \
-        --email airflow@example.com \
+        --email airflow@example.com.br \
         --firstname airflow \
-        --lastname airflow 
+        --lastname airflow
 		sleep 5
     exec airflow webserver
     ;;

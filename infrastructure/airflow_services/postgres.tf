@@ -1,7 +1,7 @@
 resource "random_string" "metadata_db_password" {
   length = 32
   upper = true
-  number = true
+  numeric = true
   special = false
 }
 
@@ -49,11 +49,11 @@ resource "aws_db_instance" "metadata_db" {
     identifier = "${var.project_name}-${var.stage}-postgres"
     
     # database name 
-    name = var.project_name
+    db_name = var.project_name
     instance_class = var.metadata_db_instance_type
     allocated_storage = 20
     engine = "postgres"
-    engine_version = "10.17"
+    engine_version = "16.3"
     skip_final_snapshot = true
     publicly_accessible = true
     db_subnet_group_name = aws_db_subnet_group.airflow_subnet_group.id

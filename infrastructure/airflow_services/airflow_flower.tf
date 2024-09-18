@@ -35,7 +35,11 @@ resource "aws_ecs_task_definition" "flower" {
     name = var.volume_efs_name
     efs_volume_configuration {
       file_system_id = aws_efs_file_system.foo.id
-      root_directory = var.volume_efs_root_directory
+      transit_encryption = "ENABLED"
+      authorization_config {
+        access_point_id = aws_efs_access_point.airflow_access_point.id
+        iam = "ENABLED"
+      }
     }
   }
   container_definitions = templatefile("${path.module}/task_definitions/airflow_services.json", {

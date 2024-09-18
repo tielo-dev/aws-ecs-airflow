@@ -22,6 +22,24 @@ resource "aws_alb_target_group" "airflow_web_server" {
     }
 }
 
+resource "aws_alb_target_group" "selenium" {
+    name        = "${var.project_name}-${var.stage}-selenium"
+    port        = 4444
+    protocol    = "HTTP"
+    vpc_id      = aws_vpc.vpc.id
+    target_type = "ip"
+
+    health_check {
+        interval = 60
+        port = 4444
+        protocol = "HTTP"
+        path = "/status"  # Usado pelo Selenium para verificar o status
+        timeout = 5
+        healthy_threshold = 3
+        unhealthy_threshold = 3
+    }
+}
+
 # port exposed from the application load balancer
 resource "aws_alb_listener" "airflow_web_server" {
     load_balancer_arn = aws_alb.airflow_alb.id
@@ -31,5 +49,16 @@ resource "aws_alb_listener" "airflow_web_server" {
     default_action {
         target_group_arn = aws_alb_target_group.airflow_web_server.id
         type = "forward"
+    }
+}
+
+resource "aws_alb_listener" "selenium" {
+    load_balancer_arn = aws_alb.airflow_alb.id
+    port = "4444"
+    protocol = "HTTP"
+
+    default_action {
+        type = "forward"
+        target_group_arn = aws_alb_target_group.selenium.id
     }
 }

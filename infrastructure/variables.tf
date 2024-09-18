@@ -1,10 +1,10 @@
 variable "aws_region" {
-   default = "us-east-1"
+   default = "us-east-2"
 }
 
 variable "availability_zones" {
    type    = list(string)
-   default = ["us-east-1a", "us-east-1b", "us-east-1c"]
+   default = ["us-east-2a", "us-east-2b", "us-east-2c"]
 }
 
 variable "project_name" {
@@ -28,9 +28,9 @@ variable "image_version" {
 }
 
 variable "metadata_db_instance_type" {
-   default = "db.t2.micro"
+   default = "db.t3.micro"
 }
 
 variable "celery_backend_instance_type" {
-   default = "cache.t2.small"
+   default = "cache.t3.small"
 }
