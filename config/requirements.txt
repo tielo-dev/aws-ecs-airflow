@@ -12,3 +12,4 @@ openpyxl
 pyarrow
 requests
 selenium
+twilio

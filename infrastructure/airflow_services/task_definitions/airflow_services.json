@@ -56,6 +56,30 @@
       {
         "name": "AIRFLOW__LOGGING__REMOTE_LOG_CONN_ID",
         "value": "aws_default"
+      },
+      {
+        "name": "AIRFLOW__CORE__PARALLELISM",
+        "value": "8"
+      },
+      {
+        "name": "AIRFLOW__CORE__DAG_CONCURRENCY",
+        "value": "4"
+      },
+      {
+        "name": "AIRFLOW__CELERY__WORKER_CONCURRENCY",
+        "value": "4"
+      },
+      {
+        "name": "AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG",
+        "value": "2"
+      },
+      {
+        "name": "AIRFLOW__CORE__STORE_SERIALIZED_DAGS ",
+        "value": "True"
+      },
+      {
+        "name": "AIRFLOW__CORE__MIN_SERIALIZED_DAG_UPDATE_INTERVAL",
+        "value": "30"
       }
     ],
     "mountPoints": [
