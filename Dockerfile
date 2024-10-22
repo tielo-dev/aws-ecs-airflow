@@ -1,4 +1,4 @@
-FROM apache/airflow:2.10.1-python3.11
+FROM apache/airflow:latest-python3.11
 
 ENV AIRFLOW_HOME=/usr/local/airflow
 
@@ -26,7 +26,9 @@ USER airflow
 COPY config/requirements.txt .
 RUN pip install -r requirements.txt
 
-
+RUN sed -i \
+    's/self\.extras\.pop("allow_insecure", "false")\.lower() == "true"/str(self.extras.pop("allow_insecure", "false")).lower() == "true"/' \
+    /home/airflow/.local/lib/python3.11/site-packages/airflow/providers/mongo/hooks/mongo.py
 EXPOSE 8080 5555 8793
 
 WORKDIR ${AIRFLOW_HOME}
