@@ -1,4 +1,4 @@
-FROM apache/airflow:latest-python3.11
+FROM apache/airflow:2.10.1-python3.11
 
 ENV AIRFLOW_HOME=/usr/local/airflow
 

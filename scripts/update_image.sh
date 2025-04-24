@@ -8,8 +8,6 @@ echo "Building image: $IMAGE_NAME:latest"
 
 docker build --rm -t $IMAGE_NAME:latest .
 
-eval $(aws ecr get-login-password)
-
 aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $AWS_ACCOUNT.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
 
 # tag and push image using latest
