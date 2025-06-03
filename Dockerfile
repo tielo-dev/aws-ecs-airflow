@@ -7,7 +7,7 @@ USER root
 #configs
 COPY config/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-#COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
 
 #plugins
 COPY plugins ${AIRFLOW_HOME}/plugins
