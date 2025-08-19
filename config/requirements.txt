@@ -5,6 +5,7 @@ awscli
 aiohttp
 apache-airflow-providers-http
 apache-airflow-providers-microsoft-mssql
+apache-airflow-providers-databricks
 apache-airflow-providers-mongo
 bs4
 lxml
